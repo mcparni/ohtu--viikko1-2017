@@ -13,11 +13,38 @@ import static org.junit.Assert.*;
 public class VarastoTest {
 
     Varasto varasto;
+	Varasto pieniVarasto;
+	Varasto pieniVarasto2;
+	Varasto pieniVarasto3;
+	Varasto pieniVarasto4;
+	Varasto pieniVarasto5;
     double vertailuTarkkuus = 0.0001;
 
     @Before
     public void setUp() {
         varasto = new Varasto(10);
+		pieniVarasto = new Varasto(0, -1);
+		pieniVarasto2 = new Varasto(-1);
+		pieniVarasto3 = new Varasto(1,0);
+		pieniVarasto4 = new Varasto(1,2);
+		pieniVarasto5 = new Varasto(1,1);
+    }
+	
+	@Test
+    public void testaaPienillaArvoille() {
+        assertEquals(0, pieniVarasto.getSaldo(), vertailuTarkkuus);
+    }
+	
+	@Test
+    public void testaaNegatiivinenPoisto() {
+		pieniVarasto2.otaVarastosta(-1);
+        assertEquals(0, pieniVarasto2.getSaldo(), vertailuTarkkuus);
+    }
+	
+	@Test
+    public void testaaNegatiivinenLisays() {
+		pieniVarasto.lisaaVarastoon(-1);
+        assertEquals(0, pieniVarasto.getSaldo(), vertailuTarkkuus);
     }
 
     @Test
@@ -45,6 +72,26 @@ public class VarastoTest {
         // vapaata tilaa pitäisi vielä olla tilavuus-lisättävä määrä eli 2
         assertEquals(2, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+	
+	@Test
+	public void maaraSuurempiKuinSaldo() { 
+		pieniVarasto4.otaVarastosta(8);
+        assertEquals(0, pieniVarasto4.getSaldo(), vertailuTarkkuus);
+	}
+	
+	@Test
+	public void listataanLiikaa() { 
+		pieniVarasto4.lisaaVarastoon(8);
+        assertEquals(1, pieniVarasto4.getSaldo(), vertailuTarkkuus);
+	}
+	
+	@Test public void testaaToString() {
+		String s = pieniVarasto5.toString();
+		String test = "saldo = 1.0, vielä tilaa 0.0";
+        assertEquals(test, s);
+	}
+	
+	
 
     @Test
     public void ottaminenPalauttaaOikeanMaaran() {
