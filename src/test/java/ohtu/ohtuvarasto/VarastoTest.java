@@ -32,7 +32,7 @@ public class VarastoTest {
 	
 	@Test
     public void testaaPienillaArvoille() {
-        assertEquals(12, pieniVarasto.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, pieniVarasto.getSaldo(), vertailuTarkkuus);
     }
 	
 	@Test
